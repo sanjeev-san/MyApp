@@ -5,20 +5,13 @@ import {SafeAreaView, View, Text, Button, StyleSheet} from 'react-native';
 export default function Home() {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={[styles.container, {backgroundColor: 'pink'}]}>
-      <View style={{backgroundColor: 'green', padding: 5}}>
-        <Text
-          style={{
-            marginVertical: 5,
-            backgroundColor: 'yellow',
-            textAlign: 'center',
-            fontSize: 20,
-          }}>
-          Welcome to the Home page
-        </Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>Welcome to the Home Page</Text>
+      </View>
+      <View style={styles.buttonContainer}>
         <Button
-          style={{flex: 1}}
-          title="Go to profile form page"
+          title="Go to Profile Form Page"
           onPress={() => {
             navigation.navigate('ProfileForm');
           }}
@@ -31,8 +24,25 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 5,
+    paddingHorizontal: 20,
+    backgroundColor: 'pink',
+  },
+  headerContainer: {
+    marginBottom: 20,
+    padding: 15,
+    borderRadius: 20,
+    alignItems: 'center',
+    backgroundColor: '#666',
+  },
+  headerText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    marginTop: 20,
+    paddingHorizontal: 10,
   },
 });
