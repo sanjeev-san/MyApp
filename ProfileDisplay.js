@@ -24,10 +24,7 @@ export default function ProfileDisplay({route}) {
         <Button title="Go back" onPress={() => navigation.goBack()} />
       </View>
       <View style={styles.buttonContainer}>
-        <Button
-          title="Go to Home"
-          onPress={() => navigation.navigate('Home')}
-        />
+        <Button title="Go to Home" onPress={() => navigation.popTo('Home')} />
       </View>
       <View style={styles.buttonContainer}>
         <Button
@@ -58,7 +55,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 3, // Adds shadow for Android
+    elevation: 3,
   },
   label: {
     fontSize: 16,
