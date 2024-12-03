@@ -9,12 +9,15 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
+import {addProfile} from '../redux/action';
 
 export default function ProfileForm() {
   const navigation = useNavigation();
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [email, setEmail] = useState('');
+  const dispatch = useDispatch();
   const handleOnSubmit = () => {
     // console.log({name, age, email});
     if (!name.trim()) {
@@ -34,6 +37,7 @@ export default function ProfileForm() {
       age: age,
       email: email,
     });
+    // dispatch(addProfile({name, age, email}));
     // setAge('');
     // setEmail('');
     // setName('');

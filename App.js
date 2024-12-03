@@ -2,9 +2,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {SafeAreaView, View, Text, Button, StyleSheet} from 'react-native';
-import Home from './Home';
-import ProfileForm from './ProfileForm';
-import ProfileDisplay from './ProfileDisplay';
+import Home from './screens/Home';
+import ProfileForm from './screens/ProfileForm';
+import ProfileDisplay from './screens/ProfileDisplay';
 
 const Stack = createNativeStackNavigator();
 
