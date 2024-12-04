@@ -1,0 +1,16 @@
+{
+  "profiles": [
+    {
+      "id": 1,
+      "name": "name one",
+      "age": 20,
+      "email": "one@one.one"
+    },
+    {
+      "id": 2,
+      "name": "name two",
+      "age": 30,
+      "email": "two@two.two"
+    }
+  ]
+}

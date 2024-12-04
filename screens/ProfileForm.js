@@ -32,12 +32,12 @@ export default function ProfileForm() {
       Alert.alert('Validation Error', 'Email must contain an "@" symbol.');
       return;
     }
-    navigation.navigate('ProfileDisplay', {
-      name: name,
-      age: age,
-      email: email,
-    });
-    // dispatch(addProfile({name, age, email}));
+    // navigation.navigate('ProfileDisplay', {
+    //   name: name,
+    //   age: age,
+    //   email: email,
+    // });
+    dispatch(addProfile({name, age, email}));
     // setAge('');
     // setEmail('');
     // setName('');

@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {profileSlice} from './reducer';
+import {profileSlice} from './profileReducer';
 
 export default combineReducers({
   profileSlice,

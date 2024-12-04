@@ -1,9 +1,19 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {SafeAreaView, View, Text, Button, StyleSheet} from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
+import HomeCard from '../components/HomeCard';
+import {useSelector} from 'react-redux';
 
 export default function Home() {
   const navigation = useNavigation();
+  const profiles = useSelector(state => state.profileSlice);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -11,38 +21,46 @@ export default function Home() {
       </View>
       <View style={styles.buttonContainer}>
         <Button
-          title="Go to Profile Form Page"
+          title="Add new profile"
           onPress={() => {
             navigation.navigate('ProfileForm');
           }}
         />
       </View>
+      <ScrollView>
+        {profiles.length <= 0 ? (
+          <Text>No profiles to display</Text>
+        ) : (
+          profiles.map(profile => (
+            <HomeCard key={profile.name} data={profile} />
+          ))
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    padding: 5,
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     paddingHorizontal: 20,
     backgroundColor: 'pink',
   },
   headerContainer: {
-    marginBottom: 20,
+    marginBottom: 5,
     padding: 15,
     borderRadius: 20,
     alignItems: 'center',
-    backgroundColor: '#666',
   },
   headerText: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: 'white',
     textAlign: 'center',
   },
   buttonContainer: {
-    marginTop: 20,
     paddingHorizontal: 10,
+    marginBottom: 10,
   },
 });
