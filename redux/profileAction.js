@@ -7,7 +7,27 @@ export const addProfile = data => {
     data: data,
   };
 };
-
+export const addProfileToStore = data => {
+  //can write any other business logic to change "data"
+  return {
+    type: actionType.ADD_PROFILE_TO_STORE,
+    data: data,
+  };
+};
+export const editProfile = data => {
+  //can write any other business logic to change "data"
+  return {
+    type: actionType.EDIT_PROFILE,
+    data: data,
+  };
+};
+export const editProfileToStore = data => {
+  //can write any other business logic to change "data"
+  return {
+    type: actionType.EDIT_PROFILE_IN_STORE,
+    data: data,
+  };
+};
 export const deleteProfileFromStore = data => {
   //can write any other business logic to change "data"
   return {
@@ -24,13 +44,6 @@ export const deleteProfile = data => {
   };
 };
 
-export const addProfileToStore = data => {
-  //can write any other business logic to change "data"
-  return {
-    type: actionType.ADD_PROFILE_TO_STORE,
-    data: data,
-  };
-};
 export const getProfiles = () => {
   //can write any other business logic to change "data"
   return {

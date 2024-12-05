@@ -34,7 +34,17 @@ export default function HomeCard(props) {
             });
           }}
         />
-        <Button title="Edit profile" />
+        <Button
+          title="Edit profile"
+          onPress={() => {
+            navigation.navigate('ProfileForm', {
+              name: profile.name,
+              age: profile.age,
+              email: profile.email,
+              id: profile.id,
+            });
+          }}
+        />
         <Button
           title="Delete profile"
           onPress={() => {

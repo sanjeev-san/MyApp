@@ -10,16 +10,21 @@ import {
   Alert,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
-import {addProfile} from '../redux/profileAction';
+import {addProfile, editProfile} from '../redux/profileAction';
 
-export default function ProfileForm() {
+export default function ProfileForm({route}) {
   const navigation = useNavigation();
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [email, setEmail] = useState('');
+  const namer = route.params.name;
+  const ager = String(route.params.age);
+  const emailr = route.params.email;
+  const id = route.params.id;
+
+  const [name, setName] = useState(namer);
+  const [age, setAge] = useState(ager);
+  const [email, setEmail] = useState(emailr);
+
   const dispatch = useDispatch();
   const handleOnSubmit = () => {
-    // console.log({name, age, email});
     if (!name.trim()) {
       Alert.alert('Validation Error', 'Name field cannot be empty.');
       return;
@@ -32,15 +37,13 @@ export default function ProfileForm() {
       Alert.alert('Validation Error', 'Email must contain an "@" symbol.');
       return;
     }
-    // navigation.navigate('ProfileDisplay', {
-    //   name: name,
-    //   age: age,
-    //   email: email,
-    // });
-    dispatch(addProfile({name, age, email}));
-    // setAge('');
-    // setEmail('');
-    // setName('');
+    if (namer === '') {
+      console.log('adding');
+      dispatch(addProfile({name, age, email}));
+    } else {
+      console.log('editong');
+      dispatch(editProfile({name, age, email, id}));
+    }
   };
   return (
     <SafeAreaView style={styles.container}>

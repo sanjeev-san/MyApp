@@ -26,7 +26,12 @@ export default function Home() {
         <Button
           title="Add new profile"
           onPress={() => {
-            navigation.navigate('ProfileForm');
+            navigation.navigate('ProfileForm', {
+              name: '',
+              age: '',
+              email: '',
+              id: '',
+            });
           }}
         />
       </View>
@@ -42,9 +47,7 @@ export default function Home() {
         {profiles.length <= 0 ? (
           <Text>No profiles to display</Text>
         ) : (
-          profiles.map(profile => (
-            <HomeCard key={profile.name} data={profile} />
-          ))
+          profiles.map(profile => <HomeCard key={profile.id} data={profile} />)
         )}
       </ScrollView>
     </SafeAreaView>

@@ -31,6 +31,27 @@ function* addProfileAPI(action) {
     console.log(e);
   }
 }
+function* editProfileAPI(action) {
+  const requestOptions = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(action.data),
+  };
+  console.log(JSON.stringify(action.data));
+  try {
+    let data = yield fetch(
+      `https://6751e985d1983b9597b4cbfb.mockapi.io/api/profiles/${action.data.id}`,
+      requestOptions,
+    );
+    data = yield data.json();
+    console.log(data);
+    yield put({type: actionType.EDIT_PROFILE_IN_STORE, data});
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 function* deleteProfileAPI(action) {
   console.log('api called');
@@ -60,6 +81,7 @@ function* profileSaga() {
   yield takeEvery(actionType.GET_PROFILES, getProfilesAPI);
   yield takeEvery(actionType.ADD_PROFILE, addProfileAPI);
   yield takeEvery(actionType.DELETE_PROFILE, deleteProfileAPI);
+  yield takeEvery(actionType.EDIT_PROFILE, editProfileAPI);
 }
 
 export default profileSaga;
