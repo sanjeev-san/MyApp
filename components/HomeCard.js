@@ -10,16 +10,26 @@ import {
 } from 'react-native';
 
 export default function HomeCard(props) {
-  const profiles = props.data;
+  const profile = props.data;
+  const navigation = useNavigation();
   return (
     <View style={styles.card}>
-      <Text>Name : {profiles.name}</Text>
+      <Text>Name : {profile.name}</Text>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-evenly',
         }}>
-        <Button title="View profile" />
+        <Button
+          title="View profile"
+          onPress={() => {
+            navigation.navigate('ProfileDisplay', {
+              name: profile.name,
+              age: profile.age,
+              email: profile.email,
+            });
+          }}
+        />
         <Button title="Edit profile" />
         <Button title="Delete profile" />
       </View>

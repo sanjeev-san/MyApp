@@ -8,6 +8,14 @@ export const addProfile = data => {
   };
 };
 
+export const addProfileToStore = data => {
+  //can write any other business logic to change "data"
+  return {
+    type: actionType.ADD_PROFILE_TO_STORE,
+    data: data,
+  };
+};
+
 export const getProfiles = () => {
   //can write any other business logic to change "data"
   return {
