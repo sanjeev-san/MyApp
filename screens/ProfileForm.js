@@ -10,7 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
-import {addProfile} from '../redux/action';
+import {addProfile} from '../redux/profileAction';
 
 export default function ProfileForm() {
   const navigation = useNavigation();

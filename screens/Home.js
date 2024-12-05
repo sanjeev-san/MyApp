@@ -9,11 +9,14 @@ import {
   ScrollView,
 } from 'react-native';
 import HomeCard from '../components/HomeCard';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {getProfiles} from '../redux/profileAction';
 
 export default function Home() {
   const navigation = useNavigation();
   const profiles = useSelector(state => state.profileSlice);
+  const dispatch = useDispatch();
+  // console.log(profiles);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -24,6 +27,14 @@ export default function Home() {
           title="Add new profile"
           onPress={() => {
             navigation.navigate('ProfileForm');
+          }}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Get all profiles"
+          onPress={() => {
+            dispatch(getProfiles());
           }}
         />
       </View>
