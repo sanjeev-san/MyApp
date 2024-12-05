@@ -1,4 +1,4 @@
-import {put, takeEvery} from 'redux-saga/effects';
+import {put, take, takeEvery} from 'redux-saga/effects';
 import * as actionType from './actionTypes';
 
 function* getProfilesAPI() {
@@ -32,10 +32,34 @@ function* addProfileAPI(action) {
   }
 }
 
+function* deleteProfileAPI(action) {
+  console.log('api called');
+  let id = action.data;
+  console.log(id);
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    let data = yield fetch(
+      `https://6751e985d1983b9597b4cbfb.mockapi.io/api/profiles/${id}`,
+      requestOptions,
+    );
+    data = yield data.json();
+    console.log('api done', data);
+    yield put({type: actionType.DELETE_PROFILE_FROM_STORE, data});
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 function* profileSaga() {
   console.log('calling saga');
   yield takeEvery(actionType.GET_PROFILES, getProfilesAPI);
   yield takeEvery(actionType.ADD_PROFILE, addProfileAPI);
+  yield takeEvery(actionType.DELETE_PROFILE, deleteProfileAPI);
 }
 
 export default profileSaga;

@@ -7,11 +7,15 @@ import {
   Button,
   StyleSheet,
   ScrollView,
+  Dimensions,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
+import {deleteProfile} from '../redux/profileAction';
 
 export default function HomeCard(props) {
   const profile = props.data;
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   return (
     <View style={styles.card}>
       <Text>Name : {profile.name}</Text>
@@ -31,7 +35,13 @@ export default function HomeCard(props) {
           }}
         />
         <Button title="Edit profile" />
-        <Button title="Delete profile" />
+        <Button
+          title="Delete profile"
+          onPress={() => {
+            console.log('dispatched');
+            dispatch(deleteProfile(profile.id));
+          }}
+        />
       </View>
     </View>
   );
