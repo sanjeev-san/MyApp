@@ -4,6 +4,7 @@ const initialState = {
   profiles: [],
   loading: false,
   statusMessage: '',
+  loadingScreen: '',
 };
 
 export const profileSlice = (state = initialState, action) => {
@@ -17,7 +18,7 @@ export const profileSlice = (state = initialState, action) => {
       let temp1 = state.profiles.filter(item => item.id != action.data.id);
       return {
         ...state,
-        profiles: [...state.profiles, ...temp1],
+        profiles: [...temp1, action.data],
       };
     case actionType.DELETE_PROFILE_FROM_STORE:
       let temp2 = state.profiles.filter(item => item.id != action.data.id);
@@ -31,16 +32,19 @@ export const profileSlice = (state = initialState, action) => {
         profiles: [...action.data],
       };
     case actionType.SET_LOADING:
-      state.loading = action.data;
       return {
         ...state,
         loading: action.data,
       };
     case actionType.SET_STATUS_MESSAGE:
-      state.statusMessage = action.data;
       return {
         ...state,
         statusMessage: action.data,
+      };
+    case actionType.SET_SCREEN_LOADING:
+      return {
+        ...state,
+        loadingScreen: action.data,
       };
     default:
       return state;

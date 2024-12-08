@@ -22,14 +22,13 @@ import {Icon, MD3Colors} from 'react-native-paper';
 
 export default function Home() {
   const navigation = useNavigation();
-  const {profiles, loading, statusMessage} = useSelector(
+  const {profiles, loading, statusMessage, loadingScreen} = useSelector(
     state => state.profileSlice,
   );
   const dispatch = useDispatch();
   const handleCloseModal = () => {
-    console.log('closing modal');
-    dispatch(setLoading(false)); // Hide the modal
-    dispatch(setStatusMessage('')); // Reset the status message
+    dispatch(setLoading(false));
+    dispatch(setStatusMessage(''));
   };
   // console.log(profiles);
   return (
@@ -62,8 +61,11 @@ export default function Home() {
           }}
         />
       </View>
-      {loading && (
-        <Modal transparent={true} animationType="fade" visible={loading}>
+      {loading && loadingScreen === 'screen1' && (
+        <Modal
+          transparent={true}
+          animationType="fade"
+          visible={loading && loadingScreen === 'screen1'}>
           <View style={styles.modalContainer}>
             {statusMessage !== 'success' && statusMessage !== 'failure' && (
               <ActivityIndicator size="large" color="#ffffff" />

@@ -2,11 +2,11 @@ import {put, take, takeEvery, delay} from 'redux-saga/effects';
 import * as actionType from './actionTypes';
 
 function* getProfilesAPI() {
-  yield put({type: actionType.SET_LOADING, data: true}); // Show loader
-  yield delay(1000); // Simulate delay for user feedback
-
+  yield put({type: actionType.SET_SCREEN_LOADING, data: 'screen1'});
+  yield put({type: actionType.SET_LOADING, data: true});
+  yield delay(1000);
   yield put({type: actionType.SET_STATUS_MESSAGE, data: 'calling API'});
-  yield delay(1000); // Simulate delay for user feedback
+  yield delay(1000);
 
   try {
     let data = yield fetch(
@@ -14,15 +14,19 @@ function* getProfilesAPI() {
     );
     data = yield data.json();
     yield put({type: actionType.SET_STATUS_MESSAGE, data: 'setting state'});
-    yield delay(1000); // Simulate delay for user feedback
+    yield delay(1000);
     yield put({type: actionType.SET_ALL_PROFILES, data});
     yield put({type: actionType.SET_STATUS_MESSAGE, data: 'success'});
   } catch (e) {
-    // console.log(e);
     yield put({type: actionType.SET_STATUS_MESSAGE, data: 'failure'});
   }
 }
 function* addProfileAPI(action) {
+  yield put({type: actionType.SET_SCREEN_LOADING, data: 'screen2'});
+  yield put({type: actionType.SET_LOADING, data: true});
+  yield delay(1000);
+  yield put({type: actionType.SET_STATUS_MESSAGE, data: 'calling API'});
+  yield delay(1000);
   const requestOptions = {
     method: 'POST',
     headers: {
@@ -36,12 +40,20 @@ function* addProfileAPI(action) {
       requestOptions,
     );
     data = yield data.json();
+    yield put({type: actionType.SET_STATUS_MESSAGE, data: 'setting state'});
+    yield delay(1000);
     yield put({type: actionType.ADD_PROFILE_TO_STORE, data});
+    yield put({type: actionType.SET_STATUS_MESSAGE, data: 'success'});
   } catch (e) {
-    console.log(e);
+    yield put({type: actionType.SET_STATUS_MESSAGE, data: 'failure'});
   }
 }
 function* editProfileAPI(action) {
+  yield put({type: actionType.SET_SCREEN_LOADING, data: 'screen2'});
+  yield put({type: actionType.SET_LOADING, data: true});
+  yield delay(1000);
+  yield put({type: actionType.SET_STATUS_MESSAGE, data: 'calling API'});
+  yield delay(1000);
   const requestOptions = {
     method: 'PUT',
     headers: {
@@ -56,10 +68,12 @@ function* editProfileAPI(action) {
       requestOptions,
     );
     data = yield data.json();
-    // console.log(data);
+    yield put({type: actionType.SET_STATUS_MESSAGE, data: 'setting state'});
+    yield delay(1000);
     yield put({type: actionType.EDIT_PROFILE_IN_STORE, data});
+    yield put({type: actionType.SET_STATUS_MESSAGE, data: 'success'});
   } catch (e) {
-    console.log(e);
+    yield put({type: actionType.SET_STATUS_MESSAGE, data: 'failure'});
   }
 }
 

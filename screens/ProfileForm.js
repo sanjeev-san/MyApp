@@ -8,12 +8,23 @@ import {
   StyleSheet,
   TextInput,
   Alert,
+  Modal,
+  ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
-import {addProfile, editProfile} from '../redux/profileAction';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  addProfile,
+  editProfile,
+  setStatusMessage,
+  setLoading,
+} from '../redux/profileAction';
 
 export default function ProfileForm({route}) {
   const navigation = useNavigation();
+  const {loading, statusMessage, loadingScreen} = useSelector(
+    state => state.profileSlice,
+  );
   const namer = route.params.name;
   const ager = String(route.params.age);
   const emailr = route.params.email;
@@ -37,16 +48,21 @@ export default function ProfileForm({route}) {
       Alert.alert('Validation Error', 'Email must contain an "@" symbol.');
       return;
     }
-    if (namer === '') {
-      // console.log('adding');
+    if (id === '') {
+      dispatch(setStatusMessage('calling action'));
       dispatch(addProfile({name, age, email}));
-      navigation.goBack();
     } else {
-      // console.log('editong');
+      dispatch(setStatusMessage('calling action'));
       dispatch(editProfile({name, age, email, id}));
-      navigation.goBack();
     }
   };
+
+  const handleCloseModal = () => {
+    dispatch(setLoading(false));
+    dispatch(setStatusMessage(''));
+    navigation.goBack();
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.formContainer}>
@@ -76,6 +92,38 @@ export default function ProfileForm({route}) {
           style={styles.input}
         />
         <Button title="Submit" onPress={handleOnSubmit} />
+
+        {loading && loadingScreen === 'screen2' && (
+          <Modal
+            transparent={true}
+            animationType="fade"
+            visible={loading && loadingScreen === 'screen2'}>
+            <View style={styles.modalContainer}>
+              {statusMessage !== 'success' && statusMessage !== 'failure' && (
+                <ActivityIndicator size="large" color="#ffffff" />
+              )}
+              {statusMessage === 'success' && (
+                <View style={styles.iconContainer}>
+                  <Text style={styles.tickMark}>✔</Text>
+                </View>
+              )}
+              {statusMessage === 'failure' && (
+                <View style={styles.iconContainer}>
+                  <Text style={styles.crossMark}>❌</Text>
+                </View>
+              )}
+              <Text style={styles.loadingText}>{statusMessage}</Text>
+
+              {(statusMessage === 'success' || statusMessage === 'failure') && (
+                <TouchableOpacity
+                  style={styles.closeButton}
+                  onPress={handleCloseModal}>
+                  <Text style={styles.closeButtonText}>Close</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          </Modal>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -113,5 +161,41 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 5,
     fontSize: 16,
+  },
+
+  modalContainer: {
+    backgroundColor: 'white',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  loadingText: {
+    color: '#ffffff',
+    marginTop: 10,
+    fontSize: 18,
+  },
+  closeButton: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#ff5722',
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+  },
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  tickMark: {
+    fontSize: 50,
+    color: 'green', // Customize for your UI
+  },
+  crossMark: {
+    fontSize: 50,
+    color: 'red', // Customize for failure state
   },
 });

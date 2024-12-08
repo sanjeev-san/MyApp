@@ -12,3 +12,4 @@ export const EDIT_PROFILE_IN_STORE = 'edit profile in store';
 
 export const SET_LOADING = 'laoding status';
 export const SET_STATUS_MESSAGE = 'status message';
+export const SET_SCREEN_LOADING = 'screen loading';

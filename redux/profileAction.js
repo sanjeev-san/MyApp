@@ -64,6 +64,13 @@ export const setLoading = data => {
     data,
   };
 };
+export const setScreenLoading = data => {
+  // console.log(data);
+  return {
+    type: actionType.SET_LOADING,
+    data,
+  };
+};
 export const setStatusMessage = data => {
   // console.log(data);
   return {
