@@ -37,7 +37,6 @@ export const deleteProfileFromStore = data => {
 };
 export const deleteProfile = data => {
   //can write any other business logic to change "data"
-  console.log('action called');
   return {
     type: actionType.DELETE_PROFILE,
     data: data,
@@ -52,9 +51,23 @@ export const getProfiles = () => {
 };
 
 export const setProfileData = data => {
-  console.log(data);
+  // console.log(data);
   return {
     type: actionType.SET_ALL_PROFILES,
+    data,
+  };
+};
+export const setLoading = data => {
+  // console.log(data);
+  return {
+    type: actionType.SET_LOADING,
+    data,
+  };
+};
+export const setStatusMessage = data => {
+  // console.log(data);
+  return {
+    type: actionType.SET_STATUS_MESSAGE,
     data,
   };
 };

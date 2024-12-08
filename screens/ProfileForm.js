@@ -38,11 +38,13 @@ export default function ProfileForm({route}) {
       return;
     }
     if (namer === '') {
-      console.log('adding');
+      // console.log('adding');
       dispatch(addProfile({name, age, email}));
+      navigation.goBack();
     } else {
-      console.log('editong');
+      // console.log('editong');
       dispatch(editProfile({name, age, email, id}));
+      navigation.goBack();
     }
   };
   return (

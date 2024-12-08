@@ -18,14 +18,16 @@ export default function HomeCard(props) {
   const dispatch = useDispatch();
   return (
     <View style={styles.card}>
-      <Text>Name : {profile.name}</Text>
+      <Text style={{textAlign: 'center', marginVertical: 5}}>
+        {profile.name}
+      </Text>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-evenly',
         }}>
         <Button
-          title="View profile"
+          title="View"
           onPress={() => {
             navigation.navigate('ProfileDisplay', {
               name: profile.name,
@@ -35,7 +37,7 @@ export default function HomeCard(props) {
           }}
         />
         <Button
-          title="Edit profile"
+          title="Edit"
           onPress={() => {
             navigation.navigate('ProfileForm', {
               name: profile.name,
@@ -46,9 +48,9 @@ export default function HomeCard(props) {
           }}
         />
         <Button
-          title="Delete profile"
+          title="Delete"
           onPress={() => {
-            console.log('dispatched');
+            // console.log('dispatched');
             dispatch(deleteProfile(profile.id));
           }}
         />

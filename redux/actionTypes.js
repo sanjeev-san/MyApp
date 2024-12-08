@@ -9,3 +9,6 @@ export const DELETE_PROFILE_FROM_STORE = 'delete profile from store';
 
 export const EDIT_PROFILE = 'edit profile';
 export const EDIT_PROFILE_IN_STORE = 'edit profile in store';
+
+export const SET_LOADING = 'laoding status';
+export const SET_STATUS_MESSAGE = 'status message';
