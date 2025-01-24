@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -22,6 +22,7 @@ import {Icon, MD3Colors} from 'react-native-paper';
 
 export default function Home() {
   const navigation = useNavigation();
+  const [name, setName] = useState('test');
   const {profiles, loading, statusMessage, loadingScreen} = useSelector(
     state => state.profileSlice,
   );
@@ -58,6 +59,15 @@ export default function Home() {
           onPress={() => {
             dispatch(setStatusMessage('calling action'));
             dispatch(getProfiles());
+          }}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title={name}
+          onPress={() => {
+            // throw Error('intentional');
+            setName(null);
           }}
         />
       </View>
