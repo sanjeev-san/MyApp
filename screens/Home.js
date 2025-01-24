@@ -19,6 +19,7 @@ import {
   setStatusMessage,
 } from '../redux/profileAction';
 import {Icon, MD3Colors} from 'react-native-paper';
+import MyCustomModule from '../components/MyCustomModule';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -55,9 +56,11 @@ export default function Home() {
       <View style={styles.buttonContainer}>
         <Button
           title="Get all profiles"
-          onPress={() => {
-            dispatch(setStatusMessage('calling action'));
-            dispatch(getProfiles());
+          onPress={async () => {
+            // dispatch(setStatusMessage('calling action'));
+            // dispatch(getProfiles());
+            const res = await MyCustomModule.greetUser('First');
+            console.log(res);
           }}
         />
       </View>
