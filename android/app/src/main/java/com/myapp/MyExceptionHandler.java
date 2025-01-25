@@ -45,13 +45,14 @@ public class MyExceptionHandler implements Thread.UncaughtExceptionHandler {
         System.out.println(payload);
 
         try {
-            // File directory = getCacheDir();
-            // System.out.println(directory);
-            // File tempFile = File.createTempFile("LOG-", ".txt", directory);
-            // FileWriter writer = new FileWriter(tempFile);
-            // writer.write(formattedDateTime + "\nstacktrace" + stackTrace + "\nthrowable"
-            // + throwable);
-            // writer.close();
+            File directory = context.getExternalCacheDir();
+            // /storage/emulated/0/Android/data/com.myapp/cache
+            System.out.println(directory);
+            File tempFile = File.createTempFile("LOG-", ".txt", directory);
+            FileWriter writer = new FileWriter(tempFile);
+            writer.write(formattedDateTime + "\nstacktrace" + stackTrace + "\nthrowable"
+                    + throwable);
+            writer.close();
             // URL url = new URL(urlString);
             // HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             // connection.setRequestMethod("POST");
