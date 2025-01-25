@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -23,6 +23,7 @@ import MyCustomModule from '../components/MyCustomModule';
 
 export default function Home() {
   const navigation = useNavigation();
+  const [name, setName] = useState('set this to null');
   const {profiles, loading, statusMessage, loadingScreen} = useSelector(
     state => state.profileSlice,
   );
@@ -56,11 +57,42 @@ export default function Home() {
       <View style={styles.buttonContainer}>
         <Button
           title="Get all profiles"
+          onPress={() => {
+            dispatch(setStatusMessage('calling action'));
+            dispatch(getProfiles());
+          }}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Custom package test"
           onPress={async () => {
-            // dispatch(setStatusMessage('calling action'));
-            // dispatch(getProfiles());
             const res = await MyCustomModule.greetUser('First');
             console.log(res);
+          }}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="throw Error"
+          onPress={() => {
+            throw Error('intention');
+          }}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="call undeclared function"
+          onPress={() => {
+            this.setname();
+          }}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title={name}
+          onPress={() => {
+            setName(null);
           }}
         />
       </View>
