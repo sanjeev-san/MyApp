@@ -32,10 +32,10 @@ public class MyExceptionHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
         System.out.println("custom1");
-        System.out.println("CustomExceptionHandler" + "Uncaught exception in thread: " + thread.getName() + throwable);
+//        System.out.println("CustomExceptionHandler" + "Uncaught exception in thread: " + thread.getName() + throwable);
         System.out.println("custom2");
-        String stackTrace = Log.getStackTraceString(throwable);
-        System.out.println(stackTrace);
+        String stackTrace = Log.getStackTraceString(throwable).replace("\\", "\\\\").replace("\"", "\\\"");
+//        System.out.println(stackTrace);
 
         LocalDateTime now = LocalDateTime.now();
         String formattedDateTime = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -46,26 +46,30 @@ public class MyExceptionHandler implements Thread.UncaughtExceptionHandler {
 
         try {
             File directory = context.getExternalCacheDir();
+            File directory1 = context.getCacheDir();
             // /storage/emulated/0/Android/data/com.myapp/cache
+            System.out.println("directory");
             System.out.println(directory);
-            File tempFile = File.createTempFile("LOG-", ".txt", directory);
+            System.out.println(directory1);
+            System.out.println("directory1");
+
+            File tempFile = File.createTempFile("LOG-", ".txt", directory1);
             FileWriter writer = new FileWriter(tempFile);
             writer.write(formattedDateTime + "\nstacktrace" + stackTrace + "\nthrowable"
                     + throwable);
             writer.close();
-            // URL url = new URL(urlString);
-            // HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            // connection.setRequestMethod("POST");
-            // connection.setRequestProperty("Content-Type", "application/json");
-            // connection.setRequestProperty("Accept", "application/json");
-            // connection.setDoOutput(true);
-            // try (OutputStream os = connection.getOutputStream()) {
-            // byte[] input = payload.getBytes("utf-8");
-            // os.write(input, 0, input.length);
-            // }
-            // // Thread.sleep(10000);
-            // int responseCode = connection.getResponseCode();
-            // System.out.println("Response Code: " + responseCode);
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
+            try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = payload.getBytes("utf-8");
+            os.write(input, 0, input.length);
+            }
+            int responseCode = connection.getResponseCode();
+            System.out.println("Response Code: " + responseCode);
         } catch (Exception e) {
             System.out.println("api call exception");
         }
