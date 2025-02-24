@@ -96,6 +96,17 @@ export default function Home() {
           }}
         />
       </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          icon="camera"
+          mode="contained"
+          title="Open webview"
+          onPress={() => {
+            navigation.navigate('CustomWebView');
+          }}
+        />
+        {/* <Icon source="camera" color={MD3Colors.error50} size={20} /> */}
+      </View>
       {loading && loadingScreen === 'screen1' && (
         <Modal
           transparent={true}

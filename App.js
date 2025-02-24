@@ -5,6 +5,7 @@ import {SafeAreaView, View, Text, Button, StyleSheet} from 'react-native';
 import Home from './screens/Home';
 import ProfileForm from './screens/ProfileForm';
 import ProfileDisplay from './screens/ProfileDisplay';
+import CustomWebView from './screens/CustomWebView';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="ProfileForm" component={ProfileForm} />
         <Stack.Screen name="ProfileDisplay" component={ProfileDisplay} />
+        <Stack.Screen name="CustomWebView" component={CustomWebView} />
       </Stack.Navigator>
     </NavigationContainer>
   );
